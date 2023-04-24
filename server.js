@@ -10,7 +10,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-mongoose.connect('mongodb://localhost:27017/myDatabase', {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 
 const store = new MongoDBStore({
-    uri: 'mongodb://localhost:27017/myDatabase',
+    uri: process.env.MONGODB_URI,
     collection: 'sessions',
   });
   store.on('error', function (error) {
@@ -53,7 +53,7 @@ const store = new MongoDBStore({
 
 
 const corsOptions = {
-    origin: 'http://localhost:3000', // Replace this with your frontend URL
+    origin: 'https://frontend-main-4mkg.onrender.com', // Replace this with your frontend URL
     credentials: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   };
