@@ -82,7 +82,7 @@ app.get('/user', isAuthenticated, async (req, res) => {
 app.post('/register', async (req, res) => {
     const { username, password } = req.body;
     let admin=false;
-  if(username=="Ayush1")
+  if(username=="Ayush1@gmail.com")
   admin=true;
     try {
       const existingUser = await User.findOne({ username });
