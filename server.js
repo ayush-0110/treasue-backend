@@ -53,7 +53,7 @@ const store = new MongoDBStore({
 
 
 const corsOptions = {
-    origin: 'https://644721b4009f7945d0b569cc--frontend-main.netlify.app/', // Replace this with your frontend URL
+    origin: 'https://frontend-main.netlify.app//', // Replace this with your frontend URL
     credentials: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   };
