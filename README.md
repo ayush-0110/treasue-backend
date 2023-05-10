@@ -2,16 +2,17 @@
 
 # Feelingz: game built around emotions
 
-## This is an imteractive quiz website, which is centered around the theme of : EMOTIONS.
+## This is an interactive quiz website, which is centered around the theme of : EMOTIONS.
 
 In this, user has to firstly register, then login. After logging in, user has to play in 5 successive rounds. each round has a different and intriguing challenge, one wrong answer and pffttt.... re-spawned from the first level.
+### If a user attempts to reload the page or if he logs in after leaving the game in the middle of a level, the game resumes from where the user left it last time. The state(current level,current score and high score) of a user is always saved.
 
 In this, various soft skills assessed are:
-    Critical thinking
-    Creativity
-    Attention to detail
-    Perseverance
-    Adaptability
+ - Critical thinking
+ - Creativity
+ - Attention to detail
+ - Perseverance
+ - Adaptability
 
 ## Technical information:
 
@@ -30,13 +31,14 @@ P.S. : Just because I used 'Concurrently' package and added some scripts, one ju
 3. Login system
 4. Asynchoronous loading components.
 5. Assessing various soft skills.
+6. If a user reloads the page or signs-in again, he starts from where he left earlier.
 
 ## Levels:
-level 1: A riddle.
-Level 2: Involves critical thinking and observation, user has to search something from a link.
-Level 3: Attention to detail, Perseverance are assessed. User has to watch a video and answer a question.
-Level 4: jigsaw puzzle.
-Level 5: A random trivia question to assess user's critical thinking and logic building.
+- Level 1: A riddle.
+- Level 2: Involves critical thinking and observation, user has to search something from a link.
+- Level 3: Attention to detail, Perseverance are assessed. User has to watch a video and answer a question.
+- Level 4: jigsaw puzzle.
+- Level 5: A random trivia question to assess user's critical thinking and logic building.
 
 ## Images:
 ## Login:
