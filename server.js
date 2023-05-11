@@ -55,7 +55,7 @@ const store = new MongoDBStore({
 
 
 const corsOptions = {
-    origin: 'https://frontend-main.netlify.app', // Replace this with your frontend URL
+    origin: 'https://frontend-main.netlify.app',
     credentials: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   };
@@ -137,11 +137,11 @@ app.post('/register', async (req, res) => {
         user.highScore = newScore;
       }
       
-      if (lastCompletedClueIndex === 1) { // Assuming 5 is the last clue
-        const clueTimeTaken = req.body.lastTime; // Add this line
+      if (lastCompletedClueIndex === 1) { 
+        const clueTimeTaken = req.body.lastTime; 
         user.lastTime = clueTimeTaken;
       if (user.bestTime === 0 || user.bestTime > clueTimeTaken) {
-        user.bestTime = clueTimeTaken; // Update the best time
+        user.bestTime = clueTimeTaken; 
       }
     }
       await user.save();
