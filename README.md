@@ -5,7 +5,7 @@
 ## This is an interactive quiz website, which is centered around the theme of : EMOTIONS.
 
 In this, user has to firstly register, then login. After logging in, user has to play in 5 successive rounds. each round has a different and intriguing challenge, one wrong answer and pffttt.... re-spawned from the first level.
-### If a user attempts to reload the page or if he logs in after leaving the game in the middle of a level, the game resumes from where the user left it last time. The state(current level,current score and high score) of a user is always saved.
+### If a user attempts to reload the page or if he logs in after leaving the game in the middle of a level, the game resumes from where the user left it last time. The state(current level,current score,time and high score) of a user is always saved.
 
 In this, various soft skills assessed are:
  - Critical thinking
@@ -16,7 +16,7 @@ In this, various soft skills assessed are:
 
 ## Technical information:
 
-Frontend is based on ReactJs. Backend is in Nodejs, database used is MongoDB. Have also used ExpressJs,Mongoose ODM library,concurrently,express-session etc.
+Frontend is based on ReactJs. Backend is in Nodejs. Have also used ExpressJs,concurrently,express-session etc.
 
 ## Setting up:
 Clone the repo, run yarn install in the frontend i.e. treasure-app. Then, navigate to backend directory i.e. treasure-backend and run npm install. Ensure MongoDB is installed and running(Refer to mongodb guide for the OS of your system)
@@ -31,14 +31,15 @@ P.S. : Just because I used 'Concurrently' package and added some scripts, one ju
 3. Login system
 4. Asynchoronous loading components.
 5. Assessing various soft skills.
-6. If a user reloads the page or signs-in again, he starts from where he left earlier.
+6. Time elapsed is tracked, updated and best time is also stored.
+7. If a user reloads the page or signs-in again, he starts from where he left earlier.
 
 ## Levels:
-- Level 1: A riddle.
-- Level 2: Involves critical thinking and observation, user has to search something from a link.
-- Level 3: Attention to detail, Perseverance are assessed. User has to watch a video and answer a question.
-- Level 4: jigsaw puzzle.
-- Level 5: A random trivia question to assess user's critical thinking and logic building.
+- Level 1: A riddle. Three chances are given to a user for correct answer, score decreases by 15 for each wrong attempt. User gets +100 for correct submission in first go.
+- Level 2: Involves critical thinking and observation, user has to draw some inference from a link. +100 for correct answer.
+- Level 3: Attention to detail, Perseverance are assessed. User has to watch a video and answer a question. +100 for correct answer.
+- Level 4: jigsaw puzzle. Here time taken is also tracked and scores are awarded accordingly. Solving within 1.5 minutes gives 100 points, points decrease by -10 every 15 seconds.
+- Level 5: A random trivia question to assess user's critical thinking and logic building. +100 for correct answer.
 
 ## Images:
 ## Login:
@@ -75,6 +76,8 @@ P.S. : Just because I used 'Concurrently' package and added some scripts, one ju
 
 ## Lost:
 ![Screenshot from 2023-04-28 01-24-47](https://user-images.githubusercontent.com/85434037/234980185-daba3cac-be32-4090-a21f-9f668f9ae74a.png)
+
+## Admin Panel:
 
 
 
