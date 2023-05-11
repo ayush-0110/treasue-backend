@@ -30,6 +30,8 @@ const userSchema = new mongoose.Schema({
   score: { type: Number, default: 0 },
   highScore: { type: Number, default: 0 }, 
   isAdmin:{type: Boolean, default:false},
+  lastTime: { type: Number, default: null },
+  bestTime: { type: Number, default: 0 },
 });
 
 const User = mongoose.model('User', userSchema);
@@ -118,10 +120,11 @@ app.post('/register', async (req, res) => {
   });
   
 
+
   app.post('/complete-clue', isAuthenticated, async (req, res) => {
     const userId = req.session.userId;
     const lastCompletedClueIndex = req.body.lastCompletedClueIndex;
-    const newScore = req.body.score; // Add this line
+    const newScore = req.body.score; 
     try {
       const user = await User.findById(userId);
       if (!user) {
@@ -133,6 +136,14 @@ app.post('/register', async (req, res) => {
       if (newScore > user.highScore) {
         user.highScore = newScore;
       }
+      
+      if (lastCompletedClueIndex === 1) { // Assuming 5 is the last clue
+        const clueTimeTaken = req.body.lastTime; // Add this line
+        user.lastTime = clueTimeTaken;
+      if (user.bestTime === 0 || user.bestTime > clueTimeTaken) {
+        user.bestTime = clueTimeTaken; // Update the best time
+      }
+    }
       await user.save();
       console.log(user.lastCompletedClueIndex);
       res.status(200).json({ message: 'Clue completed successfully.' });
@@ -143,7 +154,7 @@ app.post('/register', async (req, res) => {
 
   app.get('/all-users', isAuthenticated, async (req, res) => {
     try {
-      const users = await User.find().select('username lastCompletedClueIndex score highScore -_id');
+      const users = await User.find().select('username lastCompletedClueIndex score highScore lastTime bestTime -_id');
       res.status(200).json(users);
     } catch (error) {
       res.status(500).json({ message: 'Error fetching users.', error });
@@ -166,6 +177,8 @@ app.post('/register', async (req, res) => {
       res.status(500).json({ message: 'Error resetting user progress.', error });
     }
   });
+  
+
   
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
