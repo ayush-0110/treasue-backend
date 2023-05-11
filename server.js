@@ -171,6 +171,7 @@ app.post('/register', async (req, res) => {
       }
       user.lastCompletedClueIndex = 1;
       user.score = 0;
+      user.lastTime=0;
       await user.save();
       res.status(200).json({ message: 'User progress reset successfully.' });
     } catch (error) {
