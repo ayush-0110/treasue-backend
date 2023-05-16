@@ -19,6 +19,9 @@ app.use(cors({
 
 const sequelize = new Sequelize(process.env.MYSQL_URI, {
   dialect: 'mysql',
+  dialectOptions: {
+    connectTimeout: 30000, // Adjust the timeout value as needed
+  },
 });
 
 class User extends Model {}
