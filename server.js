@@ -69,6 +69,26 @@ app.get('/user', isAuthenticated, async (req, res) => {
   }
 });
 
+app.post('/register', async (req, res) => {
+  const { username, password } = req.body;
+  let admin = false;
+  if (username === 'Ayush1@gmail.com') {
+    admin = true;
+  }
+
+  try {
+    const existingUser = await User.findOne({ where: { username } });
+
+    if (existingUser) {
+      res.status(400).json({ message: 'Username already exists.' });
+    } else {
+      const newUser = await User.create({ username, password, isAdmin: admin });
+      res.status(201).json({ message: 'User registered successfully.', user: { id: newUser.id, username: newUser.username } });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Error registering user.', error });
+  }
+});
 
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
@@ -128,7 +148,20 @@ app.get('/all-users', isAuthenticated, async (req, res) => {
   }
 });
 
+app.post('/reset', isAuthenticated, async (req, res) => {
+const userId = req.session.userId;
 
+try {
+const user = await User.findByPk(userId);
+if (!user) {
+res.status(400).json({ message: 'User not found.' });
+return;
+}
+user.lastCompletedClueIndex = 1;
+user.score = 0;
+user.lastTime = 0;
+await user.save();
+res.status(200).json({ message: 'User progress reset successfully.' });
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
