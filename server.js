@@ -162,7 +162,11 @@ user.score = 0;
 user.lastTime = 0;
 await user.save();
 res.status(200).json({ message: 'User progress reset successfully.' });
-
+} catch (error) {
+res.status(500).json({ message: 'Error resetting user progress.', error });
+}
+});
+  
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
