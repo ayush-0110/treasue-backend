@@ -41,6 +41,13 @@ app.use(session({
   saveUninitialized: false,
 }));
 
+function isAuthenticated(req, res, next) {
+  if (req.session.userId) {
+    next();
+  } else {
+    res.status(401).send('Unauthorized');
+  }
+}
 
 app.get('/user', isAuthenticated, async (req, res) => {
   const userId = req.session.userId;
