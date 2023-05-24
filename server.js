@@ -1,11 +1,15 @@
 const express = require('express');
+const {Suprsend} = require("@suprsend/node-sdk");
+const supr_client = new Suprsend("5LzdLDzfroAuvIoq24Nu", "8KsFsPHAtaPqIyLQjQ5M");
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const { Event } = require("@suprsend/node-sdk");
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 dotenv.config();
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -26,6 +30,7 @@ function isAuthenticated(req, res, next) {
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  phone: {type: Number, default:0},
   lastCompletedClueIndex: { type: Number, default: 1 },
   score: { type: Number, default: 0 },
   highScore: { type: Number, default: 0 }, 
@@ -55,7 +60,8 @@ const store = new MongoDBStore({
 
 
 const corsOptions = {
-    origin: 'https://frontend-main.netlify.app',
+    // origin: 'https://frontend-main.netlify.app',
+    origin: 'http://localhost:3000',
     credentials: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   };
@@ -102,13 +108,30 @@ app.post('/register', async (req, res) => {
   });
 
   app.post('/login', async (req, res) => {
-    const { username, password } = req.body;
+    const { username, password, phone } = req.body;
+    const distinct_id = username;
+    const event_name = "SEND_NOTIF"
+const superUser = supr_client.user.get_instance(distinct_id);
     const user = await User.findOne({ username, password });
   
+    superUser.add_email(`${username}`) // - To add Email
+
+    superUser.add_sms(`+91${phone}`)
+    
+    superUser.add_whatsapp(`+91${phone}`) 
+
     if (user) {
       // Store the user ID in the session
       req.session.userId = user._id;
   
+// After setting the channel details on user-instance, call save()
+const response1 = superUser.save() //save() returns promise
+response1.then((res1) => console.log("SUPRUSER response", res1));
+
+const event = new Event(distinct_id, event_name)
+const responseSend  = supr_client.track_event(event)
+responseSend.then((res2) => console.log("SUPRSEND NOTIF SEND response", res2));
+
       res.json({
         success: true,
         message: 'Login successful',
