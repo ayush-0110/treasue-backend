@@ -41,6 +41,8 @@ P.S. : Just because I used 'Concurrently' package and added some scripts, one ju
 - Level 4: jigsaw puzzle. Here time taken is also tracked and scores are awarded accordingly. Solving within 1.5 minutes gives 100 points, points decrease by -10 every 15 seconds.
 - Level 5: A random trivia question to assess user's critical thinking and logic building. +100 for correct answer.
 
+### For accessing admin panel: email: Ayush1@gmail.com. Password: abcd123
+
 ## Images:
 ## Login:
 
